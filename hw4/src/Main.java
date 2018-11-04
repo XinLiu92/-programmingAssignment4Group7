@@ -1,3 +1,5 @@
+import LM.BL;
+import LM.UDS;
 import LM.UJM;
 import LM.UnigramLanguageModel;
 import edu.unh.cs.treccar_v2.Data;
@@ -12,9 +14,9 @@ import java.util.List;
 public class Main {
     public static final int topSearch = 100;
 
-    public static String INDEX_DIR = "/Users/xinliu/Documents/UNH/18Fall/cs853/index";
-    public static String OUTLINE = "/Users/xinliu/Documents/UNH/18Fall/cs853/test200/test200-train/train.pages.cbor-outlines.cbor";
-    public static String PARAGRAPH = "/Users/xinliu/Documents/UNH/18Fall/cs853/test200/test200-train/train.pages.cbor-paragraphs.cbor";
+    public static String INDEX_DIR = "C:\\CS853\\index";
+    public static String OUTLINE = "C:\\CS853\\programAssignment3\\test200-train\\train.pages.cbor-outlines.cbor";
+    public static String PARAGRAPH = "C:\\CS853\\programAssignment3\\test200-train\\train.pages.cbor-paragraphs.cbor";
 
     public static String OUTPUT_DIR = "output";
 
@@ -75,10 +77,15 @@ public class Main {
         writeFile("UnigramLanguageModel-JM.run",ujm.getList());
 
 
+        ArrayList<Data.Page> pgList = new ArrayList<>(pageList);
+        UDS uds = new UDS(pgList);
+
+        BL.RankDocWithBigram(pgList);
+
     }
 
     public static void writeFile(String name, List<String> content){
-        String fullpath = "/Users/xinliu/Documents/UNH/18Fall/cs853/programmingAssignment4/programmingAssignment4Group7/output" + "/" + name;
+        String fullpath = "/C:\\CS853\\programmingAssignment4Group7\\output" + "\\" + name;
         System.out.println(fullpath);
         try (FileWriter runfile = new FileWriter(new File(fullpath))) {
             for (String line : content) {
